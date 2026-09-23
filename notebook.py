@@ -52,5 +52,21 @@ def _(pytest):
     return
 
 
+@app.function
+def fibonacci_v3(n): 
+    if n <= 1 :  
+        return n 
+    return fibonacci_v3(n-1) + fibonacci_v3(n-2)
+
+
+@app.cell
+def _(pytest):
+    @pytest.mark.parametrize(("n", "expected"), [(2, 1), (3,2), (4, 3)],)
+    def test_cases3(n, expected):
+        assert fibonacci_v3(n) == expected
+
+    return
+
+
 if __name__ == "__main__":
     app.run()
