@@ -9,7 +9,7 @@ def _():
     import marimo as mo
     import pytest
 
-    return (mo,)
+    return mo, pytest
 
 
 @app.cell(hide_code=True)
@@ -21,12 +21,22 @@ def _(mo):
 
 
 @app.function
-def fibonacci_v1(n): 
-    if n == 0 : 
-        return 0
-    if n == 1 : 
-        return 1
-    return fibonacci_v1(n-1) + fibonacci_v1(n-2)
+def fibonacci_v1(n):  
+    return n
+
+
+@app.cell
+def _(pytest):
+    @pytest.mark.parametrize(("n", "expected"), [(2, 1), (3,2), (4, 3)],)
+    def test_cases(n, expected):
+        assert fibonacci_v1(n) == expected
+
+    return
+
+
+@app.cell
+def _():
+    return
 
 
 if __name__ == "__main__":
