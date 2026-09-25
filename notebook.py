@@ -94,5 +94,46 @@ def _(mo, n_input):
     return
 
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Optimization
+    """)
+    return
+
+
+@app.cell
+def _(pytest):
+    # As the numbers are very big, we will compare the length and the last digits for the unit tests 
+    @pytest.mark.parametrize(("n", "expected_digits", "last_digits"), [(40, 9, "4155" )],)
+    def test_large_values(n, expected_digits, last_digits):
+        res = str(fibonacci_v3(n))
+        assert len(res) == expected_digits
+        assert res.endswith(last_digits)
+
+    return
+
+
+@app.function
+def fibonacci_v4(n, dict=None):
+    if dict is None : 
+        dict = {0:0, 1:1} #initialize the dictionary 
+    if n in dict : 
+        return dict[n]
+    dict[n] = fibonacci_v4(n-1, dict) + fibonacci_v4(n-2, dict)
+    return dict[n]
+
+
+@app.cell
+def _(pytest):
+    @pytest.mark.parametrize(("n", "expected_digits", "last_digits"), [(50, 11, "9025" ), (100, 21, "5075")],)
+    def test_optimized(n, expected_digits, last_digits):
+        res = str(fibonacci_v4(n))
+        assert len(res) == expected_digits
+        assert res.endswith(last_digits)
+
+    return
+
+
 if __name__ == "__main__":
     app.run()
