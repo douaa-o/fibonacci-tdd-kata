@@ -125,12 +125,53 @@ def fibonacci_v4(n, dict=None):
 
 
 @app.cell
-def _(pytest):
+def test_optimized(pytest):
     @pytest.mark.parametrize(("n", "expected_digits", "last_digits"), [(50, 11, "9025" ), (100, 21, "5075")],)
     def test_optimized(n, expected_digits, last_digits):
         res = str(fibonacci_v4(n))
         assert len(res) == expected_digits
         assert res.endswith(last_digits)
+
+    return
+
+
+@app.cell
+def _():
+    #source : https://www.geeksforgeeks.org/dsa/fibonacci-number-modulo-m-and-pisano-period/
+    def pisano(m):
+        previous, current = 0,1
+        for i in range(0, m*m):
+            previous, current = current, (previous + current) % m
+
+            if (previous == 0 and current == 1):
+                return i+1
+
+    def fib_modulo(n, m):
+        pisano_period = pisano(m)
+
+        n = n % pisano_period
+    
+        previous, current = 0,1
+        if n == 0:
+            return 0
+        for i in range(n-1):
+            previous, current = current, previous + current
+        
+        return (current % m)
+    
+
+    return (fib_modulo,)
+
+
+@app.cell
+def _(fib_modulo, pytest):
+    @pytest.mark.parametrize(("n", "m", "expected"), 
+                             [(50, 10_000, 9025), 
+                              (100, 10_000, 5075), 
+                             (1_000, 1_000_000, 228875)],)
+
+    def test_optimized(n, m, expected):
+        assert fib_modulo(n, m) == expected
 
     return
 
