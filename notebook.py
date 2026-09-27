@@ -158,7 +158,6 @@ def _():
             previous, current = current, previous + current
         
         return (current % m)
-    
 
     return (fib_modulo,)
 
