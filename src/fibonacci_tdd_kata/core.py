@@ -15,7 +15,7 @@ def fibonacci(n, m):
     pr, c = 0,1
     if n == 0:
         return 0
-    for i in range(n-1):
+    for _ in range(n-1):
         pr, c = c, pr + c
     
     return (c % m)

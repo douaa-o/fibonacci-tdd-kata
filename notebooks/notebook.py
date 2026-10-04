@@ -17,6 +17,7 @@ def _(mo):
     mo.md(r"""
     # Fibonacci TDD with marimo
     """)
+    return
 
 
 @app.function
@@ -30,6 +31,7 @@ def _(pytest):
     def test_cases(n, expected):
         assert fibonacci_v1(n) == expected
 
+    return
 
 
 @app.function
@@ -47,6 +49,7 @@ def _(pytest):
     def test_cases2(n, expected):
         assert fibonacci_v2(n) == expected
 
+    return
 
 
 @app.function
@@ -62,6 +65,7 @@ def _(pytest):
     def test_cases3(n, expected):
         assert fibonacci_v3(n) == expected
 
+    return
 
 
 @app.cell(hide_code=True)
@@ -69,6 +73,7 @@ def _(mo):
     mo.md(r"""
     ## Marimo widget to display result
     """)
+    return
 
 
 @app.cell
@@ -86,6 +91,7 @@ def _(mo, n_input):
     except ValueError as e:
         output = mo.md(f"⚠️ Error: {e}")
     output
+    return
 
 
 @app.cell(hide_code=True)
@@ -93,17 +99,21 @@ def _(mo):
     mo.md(r"""
     ## Optimization
     """)
+    return
 
 
 @app.cell
 def _(pytest):
-    # As the numbers are very big, we will compare the length and the last digits for the unit tests 
-    @pytest.mark.parametrize(("n", "expected_digits", "last_digits"), [(40, 9, "4155" )],)
+    # As the numbers are very big, we will compare the length and 
+    # the last digits for the unit tests 
+    @pytest.mark.parametrize(("n", "expected_digits", "last_digits"), 
+                             [(40, 9, "4155" )],)
     def test_large_values(n, expected_digits, last_digits):
         res = str(fibonacci_v3(n))
         assert len(res) == expected_digits
         assert res.endswith(last_digits)
 
+    return
 
 
 @app.function
@@ -118,12 +128,15 @@ def fibonacci_v4(n, dict=None):
 
 @app.cell
 def test_optimized(pytest):
-    @pytest.mark.parametrize(("n", "expected_digits", "last_digits"), [(50, 11, "9025" ), (100, 21, "5075")],)
+    @pytest.mark.parametrize(("n", "expected_digits", "last_digits"), 
+                             [(50, 11, "9025" ), 
+                              (100, 21, "5075")],)
     def test_optimized(n, expected_digits, last_digits):
         res = str(fibonacci_v4(n))
         assert len(res) == expected_digits
         assert res.endswith(last_digits)
 
+    return
 
 
 @app.cell
@@ -145,9 +158,9 @@ def _():
         previous, current = 0,1
         if n == 0:
             return 0
-        for i in range(n-1):
+        for _ in range(n-1):
             previous, current = current, previous + current
-    
+
         return (current % m)
 
     return (fib_modulo,)
@@ -163,6 +176,7 @@ def _(fib_modulo, pytest):
     def test_optimized(n, m, expected):
         assert fib_modulo(n, m) == expected
 
+    return
 
 
 if __name__ == "__main__":
