@@ -161,6 +161,7 @@ def _():
 
             if previous == 0 and current == 1:
                 return i + 1
+        return 0
 
     def fib_modulo(n, m):
         pisano_period = pisano(m)

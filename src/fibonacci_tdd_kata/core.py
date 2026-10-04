@@ -7,6 +7,7 @@ def fibonacci(n: int, m: int) -> int:
 
             if previous == 0 and current == 1:
                 return i + 1
+        return 0
 
     pisano_period = pisano(m)
 
