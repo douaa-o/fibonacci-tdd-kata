@@ -10,5 +10,6 @@ from fibonacci_tdd_kata.core import fibonacci
 def test_optimized(n, m, expected):
     assert fibonacci(n, m) == expected
 
+
 def test_fibonacci_zero():
     assert fibonacci(0, 10) == 0

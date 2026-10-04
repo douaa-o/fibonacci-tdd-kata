@@ -18,11 +18,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="A single number to convert (ignored if --start/--end are given).",
     )
     parser.add_argument(
-            "--modulo",
-            type=int,
-            default=100,
-            help="Modulo used for the Fibonacci value, default value at 100",
-        )
+        "--modulo",
+        type=int,
+        default=100,
+        help="Modulo used for the Fibonacci value, default value at 100",
+    )
     parser.add_argument("--start", type=int, help="Start of a range (inclusive).")
     parser.add_argument("--end", type=int, help="End of a range (inclusive).")
     return parser
