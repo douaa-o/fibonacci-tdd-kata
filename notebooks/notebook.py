@@ -21,13 +21,16 @@ def _(mo):
 
 
 @app.function
-def fibonacci_v1(n):  
+def fibonacci_v1(n):
     return n
 
 
 @app.cell
 def _(pytest):
-    @pytest.mark.parametrize(("n", "expected"), [(2, 1), (3,2), (4, 3)],)
+    @pytest.mark.parametrize(
+        ("n", "expected"),
+        [(2, 1), (3, 2), (4, 3)],
+    )
     def test_cases(n, expected):
         assert fibonacci_v1(n) == expected
 
@@ -35,17 +38,20 @@ def _(pytest):
 
 
 @app.function
-def fibonacci_v2(n): 
-    if n == 0 : 
+def fibonacci_v2(n):
+    if n == 0:
         return 0
-    if n == 1 : 
-        return 1 
-    return fibonacci_v2(n-1) + fibonacci_v2(n-2)
+    if n == 1:
+        return 1
+    return fibonacci_v2(n - 1) + fibonacci_v2(n - 2)
 
 
 @app.cell
 def _(pytest):
-    @pytest.mark.parametrize(("n", "expected"), [(2, 1), (3,2), (4, 3)],)
+    @pytest.mark.parametrize(
+        ("n", "expected"),
+        [(2, 1), (3, 2), (4, 3)],
+    )
     def test_cases2(n, expected):
         assert fibonacci_v2(n) == expected
 
@@ -53,15 +59,18 @@ def _(pytest):
 
 
 @app.function
-def fibonacci_v3(n): 
-    if n <= 1 :  
-        return n 
-    return fibonacci_v3(n-1) + fibonacci_v3(n-2)
+def fibonacci_v3(n):
+    if n <= 1:
+        return n
+    return fibonacci_v3(n - 1) + fibonacci_v3(n - 2)
 
 
 @app.cell
 def _(pytest):
-    @pytest.mark.parametrize(("n", "expected"), [(2, 1), (3,2), (4, 3)],)
+    @pytest.mark.parametrize(
+        ("n", "expected"),
+        [(2, 1), (3, 2), (4, 3)],
+    )
     def test_cases3(n, expected):
         assert fibonacci_v3(n) == expected
 
@@ -104,10 +113,12 @@ def _(mo):
 
 @app.cell
 def _(pytest):
-    # As the numbers are very big, we will compare the length and 
-    # the last digits for the unit tests 
-    @pytest.mark.parametrize(("n", "expected_digits", "last_digits"), 
-                             [(40, 9, "4155" )],)
+    # As the numbers are very big, we will compare the length and
+    # the last digits for the unit tests
+    @pytest.mark.parametrize(
+        ("n", "expected_digits", "last_digits"),
+        [(40, 9, "4155")],
+    )
     def test_large_values(n, expected_digits, last_digits):
         res = str(fibonacci_v3(n))
         assert len(res) == expected_digits
@@ -118,19 +129,20 @@ def _(pytest):
 
 @app.function
 def fibonacci_v4(n, dict=None):
-    if dict is None : 
-        dict = {0:0, 1:1} #initialize the dictionary 
-    if n in dict : 
+    if dict is None:
+        dict = {0: 0, 1: 1}  # initialize the dictionary
+    if n in dict:
         return dict[n]
-    dict[n] = fibonacci_v4(n-1, dict) + fibonacci_v4(n-2, dict)
+    dict[n] = fibonacci_v4(n - 1, dict) + fibonacci_v4(n - 2, dict)
     return dict[n]
 
 
 @app.cell
 def test_optimized(pytest):
-    @pytest.mark.parametrize(("n", "expected_digits", "last_digits"), 
-                             [(50, 11, "9025" ), 
-                              (100, 21, "5075")],)
+    @pytest.mark.parametrize(
+        ("n", "expected_digits", "last_digits"),
+        [(50, 11, "9025"), (100, 21, "5075")],
+    )
     def test_optimized(n, expected_digits, last_digits):
         res = str(fibonacci_v4(n))
         assert len(res) == expected_digits
@@ -141,38 +153,37 @@ def test_optimized(pytest):
 
 @app.cell
 def _():
-    #source : https://www.geeksforgeeks.org/dsa/fibonacci-number-modulo-m-and-pisano-period/
+    # source : https://www.geeksforgeeks.org/dsa/fibonacci-number-modulo-m-and-pisano-period/
     def pisano(m):
-        previous, current = 0,1
-        for i in range(m*m):
+        previous, current = 0, 1
+        for i in range(m * m):
             previous, current = current, (previous + current) % m
 
-            if (previous == 0 and current == 1):
-                return i+1
+            if previous == 0 and current == 1:
+                return i + 1
 
     def fib_modulo(n, m):
         pisano_period = pisano(m)
 
         n = n % pisano_period
 
-        previous, current = 0,1
+        previous, current = 0, 1
         if n == 0:
             return 0
-        for _ in range(n-1):
+        for _ in range(n - 1):
             previous, current = current, previous + current
 
-        return (current % m)
+        return current % m
 
     return (fib_modulo,)
 
 
 @app.cell
 def _(fib_modulo, pytest):
-    @pytest.mark.parametrize(("n", "m", "expected"), 
-                             [(50, 10_000, 9025), 
-                              (100, 10_000, 5075), 
-                             (1_000, 1_000_000, 228875)],)
-
+    @pytest.mark.parametrize(
+        ("n", "m", "expected"),
+        [(50, 10_000, 9025), (100, 10_000, 5075), (1_000, 1_000_000, 228875)],
+    )
     def test_optimized(n, m, expected):
         assert fib_modulo(n, m) == expected
 
