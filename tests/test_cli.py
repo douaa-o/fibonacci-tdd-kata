@@ -25,7 +25,8 @@ def test_main_prints_single_value(monkeypatch, capsys):
 
 
 def test_main_prints_range(monkeypatch, capsys):
-    monkeypatch.setattr("sys.argv", ["fibonacci-tdd-kata", "--start", "1", "--end", "5", "--modulo", "100"])
+    monkeypatch.setattr("sys.argv", ["fibonacci-tdd-kata", "--start", "1", 
+                                     "--end", "5", "--modulo", "100"])
     main()
     lines = capsys.readouterr().out.strip().splitlines()
     assert lines == ["1", "2", "3", "4", "5"]
