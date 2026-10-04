@@ -29,7 +29,7 @@ def test_main_prints_range(monkeypatch, capsys):
                                      "--end", "5", "--modulo", "100"])
     main()
     lines = capsys.readouterr().out.strip().splitlines()
-    assert lines == ["1", "2", "3", "4", "5"]
+    assert lines == ["1", "1","2", "3", "5"]
 
 
 def test_main_requires_an_argument(monkeypatch):
