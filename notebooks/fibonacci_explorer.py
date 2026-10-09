@@ -18,7 +18,7 @@ with app.setup:
     import marimo as mo
     import matplotlib.pyplot as plt
 
-    from fibonacci_tdd_kata import fibonacci
+    from fibonacci_tdd_kata import fibonacci as fibo
 
 
 @app.cell
@@ -45,7 +45,7 @@ def _():
 @app.cell
 def _(end, modulo, start):
     lo, hi = sorted((start.value, end.value))
-    results = [fibonacci(n, modulo.value) for n in range(lo, hi + 1)]
+    results = [fibo.fibonacci(n, modulo.value) for n in range(lo, hi + 1)]
     results
     return (results,)
 
