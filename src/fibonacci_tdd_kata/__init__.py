@@ -1,4 +1,4 @@
-"""FizzBuzz kata package — see core.py for the implementation."""
+"""Fibonacci kata package — see core.py for the implementation."""
 
 from fibonacci_tdd_kata.core import fibonacci as fibonacci
 

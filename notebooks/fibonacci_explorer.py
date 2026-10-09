@@ -45,7 +45,7 @@ def _():
 @app.cell
 def _(end, modulo, start):
     lo, hi = sorted((start.value, end.value))
-    results = [fibo.fibonacci(n, modulo.value) for n in range(lo, hi + 1)]
+    results = [fibo(n, modulo.value) for n in range(lo, hi + 1)]
     results
     return (results,)
 
