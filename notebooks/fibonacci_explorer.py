@@ -1,7 +1,7 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
-#     "fibonacci-tdd-kata",
+#     "fibonacci-tdd-kata==0.1.0",
 #     "marimo",
 #     "matplotlib",
 # ]
