@@ -18,7 +18,7 @@ with app.setup:
     import marimo as mo
     import matplotlib.pyplot as plt
 
-    from fibonacci_tdd_kata import fibonacci as fibo
+    from fibonacci_tdd_kata.core import fibonacci as fibo
 
 
 @app.cell
