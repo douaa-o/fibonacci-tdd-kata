@@ -17,6 +17,8 @@ with app.setup:
     import marimo as mo
     import matplotlib.pyplot as plt
 
+    from fibonacci_tdd_kata import fibonacci
+
 
 @app.cell
 async def _():
@@ -30,9 +32,8 @@ async def _():
         await micropip.install(f"{base}/public/fibonacci_tdd_kata-0.1.0-py3-none-any.whl")
 
     from fibonacci_tdd_kata import fibonacci
-    return (fibonacci,)
-    
 
+    return (fibonacci,)
 
 
 @app.cell
