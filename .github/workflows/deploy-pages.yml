@@ -42,7 +42,7 @@ jobs:
           path: site
 
   deploy:
-    needs: bui
+    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
