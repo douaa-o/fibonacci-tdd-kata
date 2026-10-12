@@ -1,7 +1,6 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
-#     "fibonacci-tdd-kata",
 #     "marimo",
 #     "matplotlib",
 # ]
@@ -18,7 +17,22 @@ with app.setup:
     import marimo as mo
     import matplotlib.pyplot as plt
 
-    from fibonacci_tdd_kata.core import fibonacci as fibo
+
+@app.cell
+async def _():
+    import sys
+
+    if sys.platform == "emscripten":
+        import micropip
+        from js import location
+
+        base = location.href.split("?")[0].split("#")[0].rsplit("/", 1)[0]
+        await micropip.install(f"{base}/public/fibonacci_tdd_kata-0.1.0-py3-none-any.whl")
+
+    from fibonacci_tdd_kata import fibonacci
+    return (fibonacci,)
+    
+
 
 
 @app.cell
@@ -45,7 +59,7 @@ def _():
 @app.cell
 def _(end, modulo, start):
     lo, hi = sorted((start.value, end.value))
-    results = [fibo(n, modulo.value) for n in range(lo, hi + 1)]
+    results = [fibonacci(n, modulo.value) for n in range(lo, hi + 1)]
     results
     return (results,)
 
