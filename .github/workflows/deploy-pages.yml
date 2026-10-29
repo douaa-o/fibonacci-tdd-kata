@@ -40,6 +40,15 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
+          
+      - name: Build wheel
+        run : uv build --wheel
+
+      - name : Copy wheel
+        run : |
+          mkdir -p site/assets/public
+          cp dist/fibonacci_tdd_kata-*-py3-none-any.whl site/assets/public/
+
 
   deploy:
     needs: build
