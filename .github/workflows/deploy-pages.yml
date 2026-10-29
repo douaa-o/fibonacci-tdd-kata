@@ -35,12 +35,7 @@ jobs:
 
       - name: Export notebook to WASM-powered HTML
         run: uv run marimo export html-wasm notebooks/fibonacci_explorer.py -o site --mode run
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-          
+        
       - name: Build wheel
         run : uv build --wheel
 
@@ -48,7 +43,12 @@ jobs:
         run : |
           mkdir -p site/assets/public
           cp dist/fibonacci_tdd_kata-*-py3-none-any.whl site/assets/public/
-
+          
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+          
 
   deploy:
     needs: build
