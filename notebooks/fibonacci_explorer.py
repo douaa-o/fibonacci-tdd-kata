@@ -56,7 +56,7 @@ def _():
 
 
 @app.cell
-def _(end, modulo, start):
+def _(end, fibonacci, modulo, start):
     lo, hi = sorted((start.value, end.value))
     results = [fibonacci(n, modulo.value) for n in range(lo, hi + 1)]
     results
