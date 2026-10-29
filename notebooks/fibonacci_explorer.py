@@ -17,8 +17,6 @@ with app.setup:
     import marimo as mo
     import matplotlib.pyplot as plt
 
-    from fibonacci_tdd_kata import fibonacci
-
 
 @app.cell
 async def _():
